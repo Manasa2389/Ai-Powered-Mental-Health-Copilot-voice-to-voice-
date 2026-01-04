@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Mental Health Copilot - Calm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: transparent;
+            --primary: #1e293b;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: #44403C;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Lora', serif;
+        }
+
+        /* --- Clean Gradient Background (Matches Screenshot) --- */
+        .organic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: linear-gradient(135deg, #cffafe 0%, #dbeafe 50%, #f0f9ff 100%);
+        }
+
+        /* --- Slideware Core --- */
+        .slide {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            padding: 4rem;
+            box-sizing: border-box;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* --- Soft Cards --- */
+        .soft-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            border-radius: 32px;
+        }
+
+        /* --- Chat UI --- */
+        .chat-container {
+            width: 320px;
+            background: #fff;
+            border-radius: 40px;
+            padding: 24px;
+            box-shadow: 0 20px 50px -10px rgba(16, 185, 129, 0.15);
+        }
+
+        .msg {
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            max-width: 90%;
+            animation: fadeInMsg 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .msg-ai {
+            background-color: #F0FDFA;
+            color: #115E59;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg-user {
+            background-color: #F5F5F4;
+            color: #57534E;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        @keyframes fadeInMsg {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            body {
+                overflow: visible;
+                background: white;
+            }
+
+            .slide {
+                display: flex !important;
+                height: 100vh;
+                page-break-after: always;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .organic-bg,
+            .nav-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Clean Gradient Background -->
+    <div class="organic-bg"></div>
+
+    <!-- Slide 1: Title (Daily Copilot Mode - FIXED CONTRAST) -->
+    <div class="slide active" id="slide-1">
+        <div class="flex flex-col md:flex-row items-center w-full max-w-7xl mx-auto gap-8">
+            <!-- Left: Text (Darker for readability) -->
+            <div class="flex-1 text-left">
+                <h1
+                    class="text-7xl font-extrabold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-600">
+                    Your Daily <br>
+                    Mental Health <br>
+                    AI Copilot
+                </h1>
+                <p class="text-xl text-slate-900 font-medium leading-relaxed max-w-lg mb-8">
+                    Expert-backed emotional support, 24/7. Track your mood, journal your thoughts, and find peace with
+                    our intelligent companion.
+                </p>
+                <div class="flex gap-4">
+                    <span
+                        class="px-4 py-2 bg-white/50 rounded-lg text-slate-600 font-semibold border border-white/60">Using
+                        Gemini API</span>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Card Mockup -->
+            <div class="flex-1 flex justify-center w-full">
+                <div
+                    class="bg-white/80 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl w-full max-w-md border border-white/50">
+                    <h3 class="text-center text-xl font-bold text-slate-700 mb-6">How are you feeling today?</h3>
+                    <div class="flex justify-center gap-6 mb-8">
+                        <button class="text-4xl hover:scale-110 transition">😊</button>
+                        <button class="text-4xl hover:scale-110 transition">😐</button>
+                        <button class="text-4xl hover:scale-110 transition">😟</button>
+                    </div>
+
+                    <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-50">
+                        <div class="text-xs font-bold text-blue-600 mb-2">AI Copilot</div>
+                        <p class="text-slate-700 text-sm leading-relaxed">
+                            I noticed you've been feeling a bit stressed lately. Would you like to try a 2-minute
+                            breathing exercise?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Why -->
+    <div class="slide" id="slide-2">
+        <div class="flex flex-col md:flex-row gap-16 items-center max-w-6xl mx-auto">
+            <div class="flex-1">
+                <h2 class="text-4xl font-serif text-slate-800 mb-8 leading-tight">Usually, seeking help feels <br> <span
+                        class="text-rose-400 italic">heavy.</span></h2>
+                <div class="space-y-6">
+                    <div class="soft-card p-6 flex items-start gap-4">
+                        <span class="text-2xl mt-1">🕰️</span>
+                        <div>
+                            <h3 class="font-bold text-slate-700 mb-1">The Wait</h3>
+                            <p class="text-slate-500 text-sm">Appointments take weeks.</p>
+                        </div>
+                    </div>
+                    <div class="soft-card p-6 flex items-start gap-4">
+                        <span class="text-2xl mt-1">💸</span>
+                        <div>
+                            <h3 class="font-bold text-slate-700 mb-1">The Cost</h3>
+                            <p class="text-slate-500 text-sm">Financial barriers prevent care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Solution -->
+    <div class="slide" id="slide-3">
+        <div class="flex flex-col md:flex-row gap-12 items-center max-w-7xl mx-auto">
+            <div class="flex-1 flex justify-center">
+                <div class="chat-container">
+                    <div class="flex items-center gap-3 mb-8 border-b border-slate-100 pb-4">
+                        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700">
+                            🌱</div>
+                        <div>
+                            <div class="font-bold text-slate-700">Copilot</div>
+                        </div>
+                    </div>
+                    <div class="msg msg-user">I can't sleep.</div>
+                    <div class="msg msg-ai" style="animation-delay: 0.5s">I hear you. Let's breathe. 🌬️</div>
+                </div>
+            </div>
+            <div class="flex-1">
+                <h1 class="text-5xl font-serif text-slate-800 mb-8">Peace of mind, <br> <span
+                        class="italic text-teal-600">digitized.</span></h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Tech -->
+    <div class="slide" id="slide-4">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <h2 class="text-4xl font-serif text-slate-800">Mindful Engineering</h2>
+            <div class="grid grid-cols-4 gap-6 mt-12">
+                <div class="soft-card p-8">React.js</div>
+                <div class="soft-card p-8">FastAPI</div>
+                <div class="soft-card p-8 bg-white border-teal-100 ring-4 ring-teal-50">Gemini</div>
+                <div class="soft-card p-8">HuggingFace</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Link -->
+    <div class="slide" id="slide-5">
+        <div class="text-center">
+            <h1 class="text-6xl font-serif text-slate-800 mb-8">Just Breathe.</h1>
+            <div class="inline-block p-2 bg-white rounded-full shadow-xl">
+                <a href="http://localhost:3000"
+                    class="flex items-center gap-4 px-8 py-4 bg-teal-600 rounded-full text-white font-semibold hover:bg-teal-700 transition">
+                    <span>Experience the Demo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-10 right-10 flex gap-4 nav-buttons z-50">
+        <button onclick="prevSlide()"
+            class="w-12 h-12 rounded-full bg-white shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition text-slate-600">←</button>
+        <button onclick="nextSlide()"
+            class="w-12 h-12 rounded-full bg-slate-900 shadow-lg border border-slate-900 flex items-center justify-center hover:bg-slate-800 transition text-white">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        function showSlide(index) { slides.forEach(s => s.classList.remove('active')); slides[index].classList.add('active'); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; showSlide(currentSlide); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; showSlide(currentSlide); }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+
+</html>
